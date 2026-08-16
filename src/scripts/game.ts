@@ -282,20 +282,16 @@ export class Game {
         this.lastT = performance.now();
       }
     }
-    // Auto-focus: giữ cố định tỉ lệ W:H (3:2), co giãn kiểu "contain" (thu nhỏ
-    // theo cạnh giới hạn) để toàn bộ khu chơi — HUD, bàn, trạm bếp tới tận rìa —
-    // luôn hiển thị đủ & bấm đúng trên mọi kích thước/tỉ lệ màn hình, thay vì
-    // kiểu "cover" cũ phóng to theo cạnh lớn hơn rồi crop lệch về góc trên-trái.
+    // Full-screen: canvas fills parent container completely
     const dpr = Math.min(3, Math.max(2, window.devicePixelRatio || 1));
     this.dpr = dpr;
     const vw = Math.max(1, window.innerWidth);
     const vh = Math.max(1, window.innerHeight);
-    const fitScale = Math.min(vw / W, vh / H);
-    this.fitScale = fitScale;
-    this.canvas.style.width = `${W * fitScale}px`;
-    this.canvas.style.height = `${H * fitScale}px`;
-    this.canvas.width = Math.round(W * fitScale * dpr);
-    this.canvas.height = Math.round(H * fitScale * dpr);
+    // Use full screen dimensions for true full-screen experience
+    this.canvas.style.width = `${vw}px`;
+    this.canvas.style.height = `${vh}px`;
+    this.canvas.width = Math.round(vw * dpr);
+    this.canvas.height = Math.round(vh * dpr);
   }
 
   private toLogical(e: PointerEvent) {
