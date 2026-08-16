@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Game } from "../scripts/game";
 
 /**
@@ -10,7 +10,7 @@ export function GameMap() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [failed, setFailed] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const cv = canvasRef.current;
     if (!cv) return;
     let game: Game | null = null;

@@ -29,89 +29,19 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* khung game full-bleed, canvas giữ tỉ lệ 3:2 */
+/* khung game full-bleed; canvas tự set kích thước px qua JS (auto-focus, giữ tỉ lệ 3:2) */
 .game-root {
   position: fixed;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.game-canvas {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  touch-action: none;
-  display: block;
-  box-shadow: 0 0 120px rgba(255, 122, 40, 0.12);
-}
-
-/* màn hình lỗi dự phòng nếu canvas không dựng được */
-.boot-fallback {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  color: #f0cd7e;
-  font-family: "Bungee", "Be Vietnam Pro", sans-serif;
-  text-align: center;
-  padding: 24px;
-}
-.boot-fallback small {
-  font-family: "Be Vietnam Pro", sans-serif;
-  color: #b9a06a;
-  font-weight: 600;
-}
-
-@import "tailwindcss";
-
-html,
-body,
-#root {
-  height: 100%;
-  margin: 0;
-}
-
-body {
-  background-color: #150a04;
-  background-image:
-    radial-gradient(1100px 480px at 50% -140px, rgba(255, 138, 56, 0.17), transparent 70%),
-    radial-gradient(820px 560px at 94% 112%, rgba(46, 196, 182, 0.08), transparent 70%),
-    radial-gradient(720px 520px at 2% 108%, rgba(214, 58, 46, 0.07), transparent 70%),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 224, 160, 0.012) 0px,
-      rgba(255, 224, 160, 0.012) 1px,
-      transparent 1px,
-      transparent 4px
-    );
   overflow: hidden;
-  font-family: "Be Vietnam Pro", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* khung game full-bleed, canvas phủ toàn màn hình */
-.game-root {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: stretch;
 }
 
 .game-canvas {
-  width: 100vw;
-  height: 100vh;
-  object-fit: fill;
-  touch-action: none;
   display: block;
+  touch-action: none;
   box-shadow: 0 0 120px rgba(255, 122, 40, 0.12);
 }
 

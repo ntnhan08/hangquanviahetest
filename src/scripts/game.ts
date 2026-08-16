@@ -114,6 +114,7 @@ export class Game {
   private lastT = 0;
   private destroyed = false;
   private dpr = 1;
+  private fitScale = 1; // tỉ lệ "contain" 960x640 → khung nhìn thật, dùng chung cho draw() & click-mapping
   private bg: HTMLCanvasElement | null = null;
   private gallery: HTMLCanvasElement | null = null;
   private errGuard = false;
@@ -281,11 +282,20 @@ export class Game {
         this.lastT = performance.now();
       }
     }
-    // Resize canvas to fill viewport exactly (no letterboxing)
+    // Auto-focus: giữ cố định tỉ lệ W:H (3:2), co giãn kiểu "contain" (thu nhỏ
+    // theo cạnh giới hạn) để toàn bộ khu chơi — HUD, bàn, trạm bếp tới tận rìa —
+    // luôn hiển thị đủ & bấm đúng trên mọi kích thước/tỉ lệ màn hình, thay vì
+    // kiểu "cover" cũ phóng to theo cạnh lớn hơn rồi crop lệch về góc trên-trái.
     const dpr = Math.min(3, Math.max(2, window.devicePixelRatio || 1));
     this.dpr = dpr;
-    this.canvas.width = window.innerWidth * dpr;
-    this.canvas.height = window.innerHeight * dpr;
+    const vw = Math.max(1, window.innerWidth);
+    const vh = Math.max(1, window.innerHeight);
+    const fitScale = Math.min(vw / W, vh / H);
+    this.fitScale = fitScale;
+    this.canvas.style.width = `${W * fitScale}px`;
+    this.canvas.style.height = `${H * fitScale}px`;
+    this.canvas.width = Math.round(W * fitScale * dpr);
+    this.canvas.height = Math.round(H * fitScale * dpr);
   }
 
   private toLogical(e: PointerEvent) {
@@ -1776,14 +1786,10 @@ export class Game {
   private draw(): void {
     const ctx = this.ctx;
     this.btns.length = 0;
-    ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    // fitScale (contain, tính 1 lần trong measure()) nhân dpr = phép biến đổi
+    // duy nhất; bỏ ctx.scale() kiểu "cover" cũ vốn crop lệch do không center.
+    ctx.setTransform(this.fitScale * this.dpr, 0, 0, this.fitScale * this.dpr, 0, 0);
     if (this.shakeMag > 0) ctx.translate(rand(-1, 1) * this.shakeMag, rand(-1, 1) * this.shakeMag);
-
-    // Scale to fit the canvas while maintaining game aspect ratio
-    const scaleX = window.innerWidth / W;
-    const scaleY = window.innerHeight / H;
-    const scale = Math.max(scaleX, scaleY);
-    ctx.scale(scale, scale);
 
     ctx.fillStyle = "#152740";
     ctx.fillRect(0, 0, W, H);
