@@ -1,0 +1,26 @@
+{
+  "name": "hang-quan-via-he",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hàng Quán Vỉa Hè — game nấu ăn quản lý thời gian lấy bối cảnh ẩm thực đường phố Việt Nam. Một sản phẩm của EYECORE LABS.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.7",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.1.7",
+    "typescript": "^5.7.0",
+    "vite": "^6.3.5"
+  }
+}
