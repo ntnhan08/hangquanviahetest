@@ -36,10 +36,10 @@ export function GameMap() {
           <small>Trình duyệt của bạn không hỗ trợ Canvas 2D để chạy game.</small>
         </div>
       )}
-      {/* Decorative lanterns with hand-drawn style - positioned inside game-root for fullscreen */}
+      {/* Decorative lanterns with hand-drawn style */}
       <Lantern side="left" />
       <Lantern side="right" />
-      {/* Isometric corner decorations - inside game-root for fullscreen */}
+      {/* Isometric corner decorations */}
       <IsometricCorner type="top-left" />
       <IsometricCorner type="top-right" />
       <IsometricCorner type="bottom-left" />
@@ -52,16 +52,16 @@ function Lantern({ side }: { side: "left" | "right" }) {
   return (
     <svg
       aria-hidden
-      width="60"
-      height="140"
+      width="72"
+      height="160"
       viewBox="0 0 72 160"
       className={`lantern lantern-${side}`}
       style={{
-        position: "absolute",
-        top: "0",
-        [side]: "0",
+        position: "fixed",
+        top: "-10px",
+        [side]: "8px",
         pointerEvents: "none",
-        opacity: 0.5,
+        opacity: 0.7,
         animation: `sway-${side} 4s ease-in-out infinite`,
         transformOrigin: "top center",
         filter: "drop-shadow(0 0 24px rgba(255,180,80,0.6))",
@@ -112,10 +112,10 @@ function Lantern({ side }: { side: "left" | "right" }) {
 function IsometricCorner({ type }: { type: "top-left" | "top-right" | "bottom-left" | "bottom-right" }) {
   const getPosition = () => {
     switch (type) {
-      case "top-left": return { top: "0", left: "0", rotate: "rotate(0deg)" };
-      case "top-right": return { top: "0", right: "0", rotate: "rotate(90deg)" };
-      case "bottom-left": return { bottom: "0", left: "0", rotate: "rotate(-90deg)" };
-      case "bottom-right": return { bottom: "0", right: "0", rotate: "rotate(180deg)" };
+      case "top-left": return { top: "12px", left: "12px", rotate: "rotate(0deg)" };
+      case "top-right": return { top: "12px", right: "12px", rotate: "rotate(90deg)" };
+      case "bottom-left": return { bottom: "12px", left: "12px", rotate: "rotate(-90deg)" };
+      case "bottom-right": return { bottom: "12px", right: "12px", rotate: "rotate(180deg)" };
     }
   };
 
@@ -124,14 +124,14 @@ function IsometricCorner({ type }: { type: "top-left" | "top-right" | "bottom-le
   return (
     <svg
       aria-hidden
-      width="60"
-      height="60"
+      width="80"
+      height="80"
       viewBox="0 0 80 80"
       style={{
-        position: "absolute",
+        position: "fixed",
         ...pos,
         pointerEvents: "none",
-        opacity: 0.08,
+        opacity: 0.12,
         zIndex: 9997,
       }}
       className="isometric-corner"

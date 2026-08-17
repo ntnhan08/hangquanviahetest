@@ -55,26 +55,59 @@ body {
   position: relative;
 }
 
-/* Removed hand-drawn border frame to achieve true fullscreen */
+/* Hand-drawn border frame around the game */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 8px;
+  pointer-events: none;
+  border: 3px solid var(--ink-color);
+  border-radius: 12px;
+  opacity: 0.15;
+  z-index: 9999;
+}
 
-/* Removed isometric corner decorations from body to avoid margins - moved to game-root */
+/* Isometric corner decorations */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    /* Top-left corner */
+    linear-gradient(135deg, var(--lacquer-red) 0%, transparent 60px),
+    /* Top-right corner */
+    linear-gradient(225deg, var(--gold-accent) 0%, transparent 60px),
+    /* Bottom-left corner */
+    linear-gradient(45deg, var(--jade-green) 0%, transparent 60px),
+    /* Bottom-right corner */
+    linear-gradient(315deg, var(--wood-brown) 0%, transparent 60px);
+  opacity: 0.08;
+  z-index: 9998;
+}
 
 /* khung game full-bleed; canvas tự set kích thước px qua JS (auto-focus, giữ tỉ lệ 3:2) */
 .game-root {
   position: fixed;
   inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  width: 100vw;
-  height: 100vh;
+  /* Isometric platform shadow */
+  filter: drop-shadow(0 20px 40px rgba(58, 36, 22, 0.25));
 }
 
 .game-canvas {
   display: block;
-  width: 100vw;
-  height: 100vh;
   touch-action: none;
-  margin: 0;
-  padding: 0;
+  /* Hand-drawn stroke effect around canvas */
+  box-shadow:
+    0 0 0 3px var(--ink-color),
+    0 0 0 6px var(--paper-dark),
+    0 0 0 9px var(--ink-color),
+    0 30px 80px rgba(156, 51, 36, 0.3);
+  border-radius: 8px;
 }
 
 /* màn hình lỗi dự phòng nếu canvas không dựng được */
